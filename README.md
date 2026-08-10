@@ -10,7 +10,7 @@ Associação Simples: A Venda vincula um Cliente a um Ingresso.
 
 Algum desses temas se encaixa melhor no que você ou seu grupo estão procurando desenvolver?
 
-Plataforma de Cursos Online (LMS)
+3. Plataforma de Cursos Online (LMS)
 Herança & Polimorfismo: Classe base Conteudo com subclasses VideoAula, ArtigoTexto e Quiz. O método obter_duracao_estimada() ou validar_conclusao() funciona de forma única para cada formato.
 
 Composição: O Curso possui seus Modulos. Se o curso for deletado, os módulos pertencentes a ele são deletados junto.
