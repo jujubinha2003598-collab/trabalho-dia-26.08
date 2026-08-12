@@ -8,56 +8,21 @@ class PlataformaIdiomas:
         self.professores: list[Professor] = []
         self.alunos: list[Aluno] = []
 
-    def cadastrar_professor(self, professor: Professor):
-        self.professores.append(professor)
-
-    def cadastrar_aluno(self, aluno: Aluno):
-        self.alunos.append(aluno)
-
-    def adicionar_curso(self, curso: CursoIdioma):
-        self.cursos.append(curso)
-
-    def listar_professores(self) -> str:
-        if not self.professores:
-            return "Nenhum professor cadastrado."
-        return "\n".join([f"  {idx+1}. {p}" for idx, p in enumerate(self.professores)])
-
-    def listar_alunos(self) -> str:
-        if not self.alunos:
-            return "Nenhum aluno cadastrado."
-        return "\n".join([f"  {idx+1}. {a}" for idx, a in enumerate(self.alunos)])
-        from plataforma import PlataformaIdiomas
-from coordenador import Coordenador
-from professor import Professor
-from aluno import Aluno
-from curso_idioma import CursoIdioma
-from licao_gramatica import LicaoGramatica
-from licao_vocabulario import LicaoVocabulario
-from licao_audio import LicaoAudio
-from matricula import Matricula
-
 def popular_dados_iniciais(plataforma: PlataformaIdiomas):
-    """Pré-carrega o sistema com cursos de INGLÊS e ITALIANO com quiz de múltipla escolha."""
-    # 1. Coordenador Padrão
+
+
     coord = Coordenador("Dra. Helena Souza", "helena@linguaworld.com", "Coordenação Geral")
     plataforma.cadastrar_coordenador(coord)
 
-    # 2. Professores
     prof_ingles = Professor("John Smith", ["Inglês"], "Estados Unidos")
     prof_italiano = Professor("Giulia Bianchi", ["Italiano"], "Itália")
     plataforma.cadastrar_professor(prof_ingles)
     plataforma.cadastrar_professor(prof_italiano)
 
-    # 3. Aluno Inicial
     aluno1 = Aluno("Lucas Silva", "lucas@email.com", "Intermediário")
     plataforma.cadastrar_aluno(aluno1)
 
-    # =========================================================================
-    # CURSO 1: INGLÊS
-    # =========================================================================
     curso_en = CursoIdioma("English Fluency Program", "Inglês", prof_ingles)
-
-    # Nível Básico (Inglês)
     mod_en_basico = curso_en.criar_modulo("Level 1: Essential English")
     perguntas_en_basico = [
         {
@@ -90,7 +55,6 @@ def popular_dados_iniciais(plataforma: PlataformaIdiomas):
         LicaoGramatica("Verb To Be & Greetings", "Básico", "Verb To Be", 5, perguntas_en_basico)
     )
 
-    # Nível Intermediário (Inglês)
     mod_en_inter = curso_en.criar_modulo("Level 2: Intermediate Communication")
     perguntas_en_inter = [
         {
@@ -128,7 +92,6 @@ def popular_dados_iniciais(plataforma: PlataformaIdiomas):
         LicaoVocabulario("Phrasal Verbs & Tenses", "Intermediário", 25, perguntas_en_inter)
     )
 
-    # Nível Avançado (Inglês)
     mod_en_adv = curso_en.criar_modulo("Level 3: Advanced & Business English")
     perguntas_en_adv = [
         {
@@ -166,12 +129,9 @@ def popular_dados_iniciais(plataforma: PlataformaIdiomas):
         LicaoAudio("Business Negotiation & Idioms", "Avançado", 5, True, perguntas_en_adv)
     )
 
-    # =========================================================================
-    # CURSO 2: ITALIANO
-    # =========================================================================
     curso_it = CursoIdioma("Corso di Lingua Italiana", "Italiano", prof_italiano)
 
-    # Nível Básico (Italiano)
+
     mod_it_basico = curso_it.criar_modulo("Livello 1: Primi Passi in Italiano")
     perguntas_it_basico = [
         {
@@ -204,7 +164,6 @@ def popular_dados_iniciais(plataforma: PlataformaIdiomas):
         LicaoGramatica("Verbo Essere e Saluti", "Básico", "Coniugazione Essere", 5, perguntas_it_basico)
     )
 
-    # Nível Intermediário (Italiano)
     mod_it_inter = curso_it.criar_modulo("Livello 2: Conversazione e Viaggi")
     perguntas_it_inter = [
         {
@@ -242,7 +201,7 @@ def popular_dados_iniciais(plataforma: PlataformaIdiomas):
         LicaoVocabulario("Viaggi e Ristorante", "Intermediário", 30, perguntas_it_inter)
     )
 
-    # Nível Avançado (Italiano)
+  
     mod_it_adv = curso_it.criar_modulo("Livello 3: Fluente e Letteratura")
     perguntas_it_adv = [
         {
@@ -278,7 +237,7 @@ def popular_dados_iniciais(plataforma: PlataformaIdiomas):
     plataforma.adicionar_curso(curso_en)
     plataforma.adicionar_curso(curso_it)
 
-    # Matrículas
+
     m1 = Matricula(aluno1, curso_en)
     m1.atualizar_progresso(40.0)
     m2 = Matricula(aluno1, curso_it)
@@ -286,9 +245,6 @@ def popular_dados_iniciais(plataforma: PlataformaIdiomas):
 
     return [m1, m2]
 
-# =========================================================================
-# MENUS
-# =========================================================================
 
 def menu_coordenador(plataforma: PlataformaIdiomas, matriculas: list[Matricula], coord: Coordenador):
     while True:
@@ -389,14 +345,11 @@ def menu_aluno(plataforma: PlataformaIdiomas, matriculas: list[Matricula], aluno
             idx_l = int(input("Escolha a lição: ")) - 1
             mod, licao_escolhida = licoes_disponiveis[idx_l]
 
-            # Executa a lição e o quiz interativo
             print(f"\nExecutando: {licao_escolhida.executar_licao()}")
             acertos = licao_escolhida.executar_quiz()
 
-            # Atualiza o progresso do aluno na matrícula
             for mat in matriculas:
                 if mat.aluno == aluno and mat.curso == curso:
-                    # Incrementa um valor proporcional aos acertos
                     ganho_progresso = (acertos / len(licao_escolhida.perguntas)) * 20.0
                     mat.atualizar_progresso(mat.progresso_percentual + ganho_progresso)
                     print(f"[SISTEMA] Seu progresso no curso foi atualizado para {mat.progresso_percentual:.1f}%!")
@@ -408,3 +361,23 @@ def menu_aluno(plataforma: PlataformaIdiomas, matriculas: list[Matricula], aluno
 
         elif op == "0":
             break
+
+    def cadastrar_professor(self, professor: Professor):
+        self.professores.append(professor)
+
+    def cadastrar_aluno(self, aluno: Aluno):
+        self.alunos.append(aluno)
+
+    def adicionar_curso(self, curso: CursoIdioma):
+        self.cursos.append(curso)
+
+    def listar_professores(self) -> str:
+        if not self.professores:
+            return "Nenhum professor cadastrado."
+        return "\n".join([f"  {idx+1}. {p}" for idx, p in enumerate(self.professores)])
+
+    def listar_alunos(self) -> str:
+        if not self.alunos:
+            return "Nenhum aluno cadastrado."
+        return "\n".join([f"  {idx+1}. {a}" for idx, a in enumerate(self.alunos)])
+        from plataforma import PlataformaIdiomas
