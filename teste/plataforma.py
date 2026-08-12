@@ -9,7 +9,6 @@ class PlataformaIdiomas:
         # AGREGAÇÃO: As listas contêm objetos que existem de forma independente
         self.professores: list[Professor] = []
         self.alunos: list[Aluno] = []
-        self.cursos: list[CursoIdioma] = []
 
     def cadastrar_professor(self, professor: Professor):
         self.professores.append(professor)

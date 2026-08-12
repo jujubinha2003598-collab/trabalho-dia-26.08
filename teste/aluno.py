@@ -1,5 +1,4 @@
 class Aluno:
-    """Representa um estudante cadastrado na plataforma."""
     def __init__(self, nome: str, email: str, nivel_conhecimento: str = "Iniciante"):
         self.nome = nome
         self.email = email

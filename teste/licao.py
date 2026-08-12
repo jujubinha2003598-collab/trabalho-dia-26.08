@@ -8,12 +8,12 @@ class Licao(ABC):
 
     @abstractmethod
     def obter_duracao_estimada(self) -> int:
-        """Retorna o tempo estimado em minutos para concluir a lição (POLIMORFISMO)."""
+
         pass
 
     @abstractmethod
     def executar_licao(self) -> str:
-        """Simula a execução/prática da lição de idioma (POLIMORFISMO)."""
+
         pass
 
     def __str__(self):
